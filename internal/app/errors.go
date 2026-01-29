@@ -20,7 +20,7 @@ func isTransientError(err error) bool {
 			return true
 		}
 	}
-	msg := strings.ToLower(err.Error())
+	msg := strings.ToLower(strings.TrimSpace(err.Error()))
 	switch {
 	case strings.Contains(msg, "timeout"):
 		return true
@@ -41,6 +41,8 @@ func isTransientError(err error) bool {
 	case strings.Contains(msg, "i/o timeout"):
 		return true
 	case strings.Contains(msg, "network is unreachable"):
+		return true
+	case strings.HasSuffix(msg, " eof"):
 		return true
 	}
 	return false
