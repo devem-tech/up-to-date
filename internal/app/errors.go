@@ -43,6 +43,8 @@ func isTransientError(err error) bool {
 		return true
 	case strings.HasSuffix(msg, " eof"):
 		return true
+	case strings.HasSuffix(msg, "502 bad gateway"):
+		return true
 	}
 	return false
 }
